@@ -27,6 +27,7 @@ test_psgi $app, sub {
     );
     $res = $cb->($req);
     is $res->code, 302;
+    is $res->content, '';
 
     $req->header(
         user_agent => 'Mozilla/4.0 (compatible; MSIE 7.0b; chromeframe=1)',
@@ -35,6 +36,14 @@ test_psgi $app, sub {
     is $res->code, 200;
     is $res->content, 'Hello';
     is $res->header('x_ua_compatible'), 'chrome=1';
+
+    $req->header(
+        user_agent => 'Mozilla/4.0 (compatible; MSIE 6.0) Opera 8.50',
+    );
+    $res = $cb->($req);
+    is $res->code, 200;
+    is $res->content, 'Hello';
+    ok not $res->header('x_ua_compatible');
 };
 
 done_testing;

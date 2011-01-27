@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Plack-Middleware-ChromeFrame
-version:            0.01
+version:            0.02
 abstract:           injects Google Chrome Frame into IE
 author:
     - gray <gray@cpan.org>
